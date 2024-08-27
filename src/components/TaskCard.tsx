@@ -2,7 +2,6 @@ import {
   Dispatch,
   DragEventHandler,
   SetStateAction,
-  useEffect,
   useState,
 } from "react";
 import { TaskType } from "../utils/TaskData";
@@ -36,10 +35,6 @@ const TaskCard = ({
     )
   );
 
-  useEffect(() => {
-    console.log("deadlineafter", taskCardData.deadLine);
-    console.log("timeLeftafter", timeLeft);
-  }, [timeLeft]);
   const HandleDeleteTask = (taskData: TaskType): void => {
     setAllTasks(allTasks.filter((t) => t.id !== taskData.id));
   };
@@ -71,7 +66,7 @@ const TaskCard = ({
         <div className=" flex items-center justify-center gap-2 border-b-2 border-b-blue-200">
           {/* bascic condition for timeleft ui in the top right corner of taskcard */}
           <span>{Math.sign(timeLeft) !== 0 && Math.abs(timeLeft)}</span>
-          {Math.sign(timeLeft) === -1 && (  
+          {Math.sign(timeLeft) === -1 && (
             <span className="mb-1">روز گزشته</span>
           )}
           {Math.sign(timeLeft) === 1 && <span className="mb-1">روز مانده</span>}
