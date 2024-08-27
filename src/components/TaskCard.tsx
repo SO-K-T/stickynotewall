@@ -1,4 +1,10 @@
-import { Dispatch, DragEventHandler, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  DragEventHandler,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { TaskType } from "../utils/TaskData";
 import { DatePicker } from "zaman";
 
@@ -25,14 +31,15 @@ const TaskCard = ({
   // set the time left to deadline - today date
   const [timeLeft, setTimeLeft] = useState<number>(
     Math.round(
-      (taskCardData?.deadLine.valueOf() + 1 - new Date().valueOf()) /
-        (1000 * 3600 * 24) +
-        1
+      (taskCardData?.deadLine.valueOf() + 1 - Date.now().valueOf()) /
+        (1000 * 3600 * 24)
     )
   );
 
-  console.log(taskCardData);
-
+  useEffect(() => {
+    console.log("deadlineafter", taskCardData.deadLine);
+    console.log("timeLeftafter", timeLeft);
+  }, [timeLeft]);
   const HandleDeleteTask = (taskData: TaskType): void => {
     setAllTasks(allTasks.filter((t) => t.id !== taskData.id));
   };
@@ -62,12 +69,13 @@ const TaskCard = ({
     >
       <div className="flex gap-2 justify-between ">
         <div className=" flex items-center justify-center gap-2 border-b-2 border-b-blue-200">
-          <span>{Math.abs(timeLeft)}</span>
-          {Math.sign(timeLeft) === -1 ? (
+          {/* bascic condition for timeleft ui in the top right corner of taskcard */}
+          <span>{Math.sign(timeLeft) !== 0 && Math.abs(timeLeft)}</span>
+          {Math.sign(timeLeft) === -1 && (  
             <span className="mb-1">روز گزشته</span>
-          ) : (
-            <span className="mb-1">روز مانده</span>
           )}
+          {Math.sign(timeLeft) === 1 && <span className="mb-1">روز مانده</span>}
+          {Math.sign(timeLeft) === 0 && <span className="mb-1">روز تحویل</span>}
 
           <span className="mb-1">{}</span>
         </div>
@@ -124,13 +132,15 @@ const TaskCard = ({
               className=" z-50 !w-[22rem] absolute  top-10 left-[80%] "
               defaultValue={taskCardData.deadLine}
               onChange={(e) => {
+                console.log("deadlinebefore", taskCardData.deadLine);
                 SetTaskCardData({
                   ...taskCardData,
                   deadLine: new Date(e.value),
                 });
+                console.log("timeLeftbefore", timeLeft);
                 setTimeLeft(
                   Math.round(
-                    (e.value.valueOf() - taskCardData?.deadLine.valueOf()) /
+                    (e.value.valueOf() - Date.now().valueOf()) /
                       (1000 * 3600 * 24)
                   )
                 );
