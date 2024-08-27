@@ -22,12 +22,16 @@ const TaskCard = ({
   const [taskCardData, SetTaskCardData] = useState<TaskType>(taskData);
   const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
   const [isEditingDeadLine, setIsEditingDeadLine] = useState<boolean>(false);
+  // set the time left to deadline - today date
   const [timeLeft, setTimeLeft] = useState<number>(
     Math.round(
-      (taskCardData?.deadLine.valueOf() - taskCardData?.createdAt.valueOf()) /
-        (1000 * 3600 * 24)
+      (taskCardData?.deadLine.valueOf() + 1 - new Date().valueOf()) /
+        (1000 * 3600 * 24) +
+        1
     )
   );
+
+  console.log(taskCardData);
 
   const HandleDeleteTask = (taskData: TaskType): void => {
     setAllTasks(allTasks.filter((t) => t.id !== taskData.id));
@@ -58,8 +62,14 @@ const TaskCard = ({
     >
       <div className="flex gap-2 justify-between ">
         <div className=" flex items-center justify-center gap-2 border-b-2 border-b-blue-200">
-          <span>{timeLeft}</span>
-          <span className="mb-1">روز مانده</span>
+          <span>{Math.abs(timeLeft)}</span>
+          {Math.sign(timeLeft) === -1 ? (
+            <span className="mb-1">روز گزشته</span>
+          ) : (
+            <span className="mb-1">روز مانده</span>
+          )}
+
+          <span className="mb-1">{}</span>
         </div>
         <button onClick={() => HandleDeleteTask(taskData)}>
           <svg
@@ -94,20 +104,23 @@ const TaskCard = ({
         </h1>
       )}
 
-      <div className="flex gap-2 text-md  justify-center ">
-        <div className="flex gap-1">
+      <div className="flex gap-2    justify-center ">
+        <div className="flex gap-1 text-base">
           <span> تاریخ ثبت :</span>
           <span className="">{changeDate(taskCardData.createdAt)}</span>
         </div>
 
         <span className="border border-slate-400"></span>
 
-        <div className="flex    gap-1" onBlur={() => setIsEditingTitle(false)}>
+        <div
+          className="flex  text-base   gap-1"
+          onBlur={() => setIsEditingTitle(false)}
+        >
           <span> مهلت تحویل :</span>
           {isEditingDeadLine ? (
             <DatePicker
               name="deadLine"
-              inputClass=" w-[5rem] flex text-center bg-transparent focus:bg-orange-50 "
+              inputClass=" w-[4rem] flex text-center bg-transparent focus:bg-orange-50 "
               className=" z-50 !w-[22rem] absolute  top-10 left-[80%] "
               defaultValue={taskCardData.deadLine}
               onChange={(e) => {

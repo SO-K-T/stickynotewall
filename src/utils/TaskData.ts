@@ -8,47 +8,29 @@ export type TaskType = {
 export const tasksData: TaskType[] = [
   {
     id: "1",
-    title:
-      " 1 برنامه assaddas sad asda نویسی  تس sad sads dasad sda sa  sad sda sda as asdsaک",
-    deadLine: new Date(),
-    createdAt: new Date(),
+    title: "درست کردن پروژه",
+    // ۱۴۷۹/۶/۱۰
+    deadLine: new Date("2024/8/31"),
+    // ۱۴۷۹/۶/۳
+    createdAt: new Date("2024/8/24"),
   },
   {
     id: "2",
-    title: "2 برنامه نویسی  تسک",
-    deadLine: new Date(),
-    createdAt: new Date(),
+    title: "مشغول به کار شدن در شرکت ریرا",
+    deadLine: new Date("2024/9/24"),
+    createdAt: new Date("2024/8/24"),
   },
   {
     id: "3",
-    title: "3 برنامه نویسی  تسک",
-    deadLine: new Date(),
-    createdAt: new Date(),
+    title:
+      "یادگیری برنامه نویسی تی دی دی با استفاده از جست و ار تی ال برای یونیت تستینگ و سایپرس برای تست اند تو اند ",
+    deadLine: new Date("2024/9/3"),
+    createdAt: new Date("2024/8/27"),
   },
   {
     id: "4",
-    title: "4 برنامه نویسی  تسک",
-    deadLine: new Date(),
-    createdAt: new Date(),
-  },
-  {
-    id: "5",
-    title: "5 برنامه نویسی  تسک",
-    deadLine: new Date(),
-    createdAt: new Date(),
-  },
-
-  {
-    id: "6",
-    title: "6 برنامه نویسی  تسک",
-    deadLine: new Date(),
-    createdAt: new Date(),
-  },
-
-  {
-    id: "7  ",
-    title: "7 برنامه نویسی  تسک",
-    deadLine: new Date(),
-    createdAt: new Date(),
+    title: "اتمام کتاب اتومیک هبیتس",
+    deadLine: new Date("2024/8/1"),
+    createdAt: new Date("2024/7/20"),
   },
 ];
