@@ -83,12 +83,9 @@ const TaskCreation = ({
               </label>
               <div className="border-2 rounded-sm px-2   ">
                 <DatePicker
-                  name="deadLine"
                   className=" z-50 !w-[22rem] absolute md:top-[0] md:left-[75%] top-[10rem] left-[90%] shadow-lg "
                   onChange={(e) => {
                     if (formData.createdAt <= e.value) {
-                      console.log("valid");
-
                       setFormData({ ...formData, deadLine: new Date(e.value) });
                     } else {
                       alert(
@@ -104,11 +101,7 @@ const TaskCreation = ({
                 : تاریخ ثبت
               </label>
               <div className="border-2 rounded-sm px-2  ">
-                <DatePicker
-                  name="createdAt"
-                  className=" hidden "
-                  defaultValue={new Date()}
-                />
+                <DatePicker className=" hidden " defaultValue={new Date()} />
               </div>
             </div>
           </div>

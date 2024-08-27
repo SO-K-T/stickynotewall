@@ -1,9 +1,4 @@
-import {
-  Dispatch,
-  DragEventHandler,
-  SetStateAction,
-  useState,
-} from "react";
+import { Dispatch, DragEventHandler, SetStateAction, useState } from "react";
 import { TaskType } from "../utils/TaskData";
 import { DatePicker } from "zaman";
 
@@ -90,7 +85,7 @@ const TaskCard = ({
 
       {isEditingTitle ? (
         <textarea
-          className="text-xl text-right font-semibold overflow-auto h-[4rem] pr-1  mb-1  leading-8 bg-orange-50     "
+          className="text-xl text-right font-semibold overflow-auto h-[4rem] pr-2  mb-1  leading-8 bg-orange-50     "
           defaultValue={taskCardData.title}
           autoFocus
           onChange={(e) =>
@@ -101,7 +96,7 @@ const TaskCard = ({
       ) : (
         <h1
           onDoubleClick={() => setIsEditingTitle(true)}
-          className="text-xl text-right  font-semibold overflow-auto  h-[4rem] px-1 pr-1  mb-1 leading-8"
+          className="text-xl w-[20rem] text-right  font-semibold overflow-auto  h-[4rem]  pr-2  mb-1 leading-8"
         >
           {taskCardData.title}
         </h1>
@@ -116,23 +111,20 @@ const TaskCard = ({
         <span className="border border-slate-400"></span>
 
         <div
-          className="flex  text-base   gap-1"
+          className="flex  text-base    gap-1"
           onBlur={() => setIsEditingTitle(false)}
         >
           <span> مهلت تحویل :</span>
           {isEditingDeadLine ? (
             <DatePicker
-              name="deadLine"
               inputClass=" w-[4rem] flex text-center bg-transparent focus:bg-orange-50 "
-              className=" z-50 !w-[22rem] absolute  top-10 left-[80%] "
+              className=" z-50 !w-[22rem] absolute  xl:top-10 xl:left-[80%] md:top-[10rem] md:left-[30rem] sm:top-[10rem] sm:left-[10rem]  "
               defaultValue={taskCardData.deadLine}
               onChange={(e) => {
-                console.log("deadlinebefore", taskCardData.deadLine);
                 SetTaskCardData({
                   ...taskCardData,
                   deadLine: new Date(e.value),
                 });
-                console.log("timeLeftbefore", timeLeft);
                 setTimeLeft(
                   Math.round(
                     (e.value.valueOf() - Date.now().valueOf()) /
